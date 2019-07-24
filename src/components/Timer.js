@@ -6,7 +6,7 @@ class Timer extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        time: 1500, /* seconds */
+        time: 10, /* seconds */
         start: false,
         percentage: 0,
       };
@@ -20,10 +20,15 @@ class Timer extends React.Component {
         this.setState({ start: !this.state.start });
         if(!this.state.start) {
           this.interval = setInterval(() => {
-            this.setState({
-              time: this.state.time - 1,
-              percentage: this.state.percentage + 0.06
-            });
+            if(this.state.time > 0) {
+              this.setState({
+                time: this.state.time - 1,
+                percentage: this.state.percentage + 0.06
+              });
+            } else {
+              this.stop();
+              clearInterval(this.interval);
+            }
           }, 1000);
         } else {
           clearInterval(this.interval);
@@ -32,6 +37,7 @@ class Timer extends React.Component {
     };
   
     stop() {
+      document.getElementById("audio").play();
       this.setState({ start: false, time: 1500, percentage: 0 });
       clearInterval(this.interval);
     };
