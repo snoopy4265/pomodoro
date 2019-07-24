@@ -1,4 +1,5 @@
 import React from 'react';
+import Finish from '../finish.svg';
 
 const TodoListItem = ({todos, deleteItem, chooseItem}) => {
 
@@ -19,6 +20,7 @@ const TodoListItem = ({todos, deleteItem, chooseItem}) => {
     })
   ) : (
     <div className="ui placeholder segment center aligned" style={{background:'none', border:'0px', boxShadow:'none'}}>
+      <img src={Finish} className="ui centered small image" alt="finish"/>
       <h2>Yay! You don't have any todo task left!</h2>
     </div>
   )
