@@ -47,9 +47,8 @@ code {
   background: url('./dot.svg') repeat-x;
 }
 
-.filler {
-  background: #e6e6e6;
-  height: 100%;
-  border-radius: inherit;
-  transition: width 0.2s ease-in;
+.truck.icon {
+  position: absolute;
+  left: 0%;
+  transition: all 0.2s ease-in;
 }

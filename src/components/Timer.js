@@ -14,14 +14,21 @@ class Timer extends React.Component {
       this.stop = this.stop.bind(this);
     }
 
-    play() {
-      this.setState({ start: true });
-      this.interval = setInterval(() => {
-        this.setState({
-          time: this.state.time - 1,
-          percentage: this.state.percentage + 1
-        });
-      }, 1000);
+    play(prevState) {
+      if(this.state.start !== prevState.start) {
+        /* Toggle play pause button */
+        this.setState({ start: !this.state.start });
+        if(!this.state.start) {
+          this.interval = setInterval(() => {
+            this.setState({
+              time: this.state.time - 1,
+              percentage: this.state.percentage + 0.06
+            });
+          }, 1000);
+        } else {
+          clearInterval(this.interval);
+        }
+      }
     };
   
     stop() {
@@ -37,7 +44,7 @@ class Timer extends React.Component {
         <div className="ui center middle aligned grid">
           <div className="sixteen center aligned wide column">
             <Ticking time={time}/>
-            {showTask ? <h1 className="header">{showTask}</h1>: <h1 className="header" style={{opacity:'.3'}}>What to do next?</h1>}
+            { showTask ? <h1 className="header">{showTask}</h1>: <h1 className="header" style={{opacity:'.3'}}>What to do next?</h1>}
             <button className="ui massive icon button" style={{background:'none', color:'black'}} onClick={play}>
               { start ? <i className="pause icon"></i> : <i className="play icon"></i>}
             </button>
@@ -47,8 +54,7 @@ class Timer extends React.Component {
             <div className="ui divider"></div>
             <h3>You just started on the road. <br />Keep going!</h3>
             <div className="progress-bar-wrapper">
-              <div className="filler" style={{ width: `${percentage}%` }} />
-              <i className="truck icon"></i>
+              <i className="truck icon" style={{ left: `${percentage}%` }}></i>
               <div className="progress-bar"></div>
               <i className="flag checkered icon"></i>
             </div>
